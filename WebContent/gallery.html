@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Gallery</title>
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css"
+	rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="./fotorama.css">
+<script type="text/javascript" src="./fotorama.js"></script>
+<script type="text/javascript">
+	function search() {
+		$.ajax({
+		    url : "http://apis.daum.net/search/image",
+		    dataType : "jsonp",
+		    type : "post",
+		    jsonp : "callback",
+		    data : {
+		        apikey : "3803541fce89370275fcefe628ed9f9acafe223e", 
+		        q : $("#q").val(),             // search keyword
+		        result : "20",                 // result set length
+		        pageno : $("#pageno").val(),   // pageNo
+		        output : "json"                // JSONP type format json
+		    },
+		    success : function(r){
+		        var list = r.channel.item;
+		        var fr = "";
+		        for(var i in list) {
+		        	fr += "<a href=\""+ list[i].image +"\"><img src=\""+ list[i].thumbnail +"\"></a>";
+		        }
+		        fr = "<div>" + fr + "</div>";		// 검색되온 url을 태그로 만듬
+	        	$("#fr").html(fr);					// fr 아이디에 해당 태그를 넣음
+	        	$("#fr div").fotorama({width:720,height:480});		// fr인 아이디의 너비,높이를 fotorama 적용
+
+	        	$("#pageno").val(parseInt($("#pageno").val())+1);	// pageno를 1증가
+
+		    }
+		});
+		return false;
+	}
+
+	$(function() {
+		$("#go").click(search);
+		$("#q").bind("change", function(){$("#pageno").val(1);});	// 검색어가 바뀌면 페이지넘버를1로 셋팅
+		$("#q").live("keypress", function(event) {
+			if (event.which === 13) {		// enter key 값 = 13 으로 엔터를 누르면 search 메소드 실행
+				search();
+			}
+		})
+	});
+</script>
+</head>
+<body>
+	<form onsubmit="return search()">
+		<input id="q" type="text" value="서태지"> 
+		<input id="pageno" type="text" value="1"> 
+		<input id="go" type="button" value="Go">
+	</form>
+	<hr>
+	<div id="fr">
+	</div>
+</body>
+</html>
