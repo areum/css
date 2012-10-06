@@ -9,6 +9,7 @@ ul {
 	margin: 12px 12px 12px 12px;
 	padding: 3px 3px 3px 3px;
 }
+
 li {
 	color: white;
 	background: gray;
@@ -16,17 +17,28 @@ li {
 	padding: 12px 0px 12px 12px;
 	list-style: none;
 }
+
 li.withborder {
 	border-style: dashed;
 	border-width: medium;
 	border-color: lime;
 }
 
+#container {
+	border: 2px dotted #00f;
+}
+
 div {
-    background: #fec;
-    border: 1px solid lime;
-    width: 400px;
-    height: 80px;
+	border-radius: 10px;
+}
+
+div div {
+	background: #FEC;
+	border: 1px solid lime;
+	width: 80px;
+	height: 200px;
+	margin: 10px 30px;
+	display: inline-block;
 }
 
 p {
@@ -44,10 +56,39 @@ p {
 		<li>First element of list</li>
 		<li class="withborder">Second element of list is a bit longer to illustrate wrapping.</li>
 	</ul>
-	
-	<div>
-	text
-	<p>other text</p>
+
+	<div id="container">
+
+		<div>
+			text
+			<p>other text</p>
+		</div>
+
+		<div>
+			text
+			<p>other text</p>
+		</div>
+
+		<div>
+			text
+			<p>other text</p>
+		</div>
+
+		<div>
+			text
+			<p>other text</p>
+		</div>
+
+		<div>
+			text
+			<p>other text</p>
+		</div>
+
+		<div>
+			text
+			<p>other text</p>
+		</div>
+		
 	</div>
 </body>
 </html>
